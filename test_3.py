@@ -6,6 +6,31 @@ import re
 # 1. ページ設定（必ず最初に！）
 st.set_page_config(page_title="クリエイター管理プラットフォーム", layout="wide", page_icon="🎧")
 
+# --- パスワード保護機能 ---
+def check_password():
+    def password_entered():
+        if st.session_state["password"] == st.secrets["APP_PASSWORD"]:
+            st.session_state["password_correct"] = True
+            del st.session_state["password"]  # セキュリティのため入力値を消す
+        else:
+            st.session_state["password_correct"] = False
+
+    if "password_correct" not in st.session_state:
+        # 初回表示
+        st.text_input("パスワードを入力してください", type="password", on_change=password_entered, key="password")
+        return False
+    elif not st.session_state["password_correct"]:
+        # パスワードが間違っている場合
+        st.text_input("パスワードを入力してください", type="password", on_change=password_entered, key="password")
+        st.error("😕 パスワードが違います")
+        return False
+    else:
+        # パスワード正解
+        return True
+
+if not check_password():
+    st.stop() # 正解するまでこれ以降のコードを実行しない
+
 # --- 設定 ---
 SUPABASE_URL = st.secrets["SUPABASE_URL"]
 SUPABASE_KEY = st.secrets["SUPABASE_KEY"]
