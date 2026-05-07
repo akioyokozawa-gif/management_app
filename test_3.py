@@ -4,7 +4,7 @@ import yfinance as yf
 import re
 
 # 1. ページ設定（必ず最初に！）
-st.set_page_config(page_title="CRM Global Pro v2.2", layout="wide", page_icon="🎧")
+st.set_page_config(page_title="クリエイター管理プラットフォーム", layout="wide", page_icon="🎧")
 
 # --- 設定 ---
 SUPABASE_URL = st.secrets["SUPABASE_URL"]
@@ -69,7 +69,7 @@ CURRENCIES = ["USD", "JPY", "EUR", "CNY"]
 ROLE_OPTIONS = ["作曲", "アレンジ", "演奏", "エンジニア", "作詞", "ボーカル"]
 
 # --- メイン UI ---
-st.title("🎧 クリエイター管理プラットフォーム Global Pro")
+st.title("🎧 クリエイター管理プラットフォーム")
 
 # セクター切り替え
 sector = st.radio("セクター選択", ["Music Related", "Video Related"], horizontal=True)
